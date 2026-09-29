@@ -1,0 +1,10 @@
+# Movies and other video files
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.webm
+*.m4v
+*.mpg
+*.mpeg
+*.wmv

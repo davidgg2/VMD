@@ -90,18 +90,19 @@ def excluded_mask(h, w, flow_h, flow_w):
     return valid, flow_valid
 
 
-def residual_boxes(prev_gray, gray, w, h, flow_w, flow_h, sx, sy, flow_valid):
+def residual_boxes(prev_gray, gray, w, h, flow_w, flow_h, sx, sy, flow_valid,
+                   threshold=FLOW_THRESHOLD, min_area=FLOW_MIN_AREA):
     flow = cv2.calcOpticalFlowFarneback(prev_gray, gray, None, **FARNEBACK)
     residual = flow - np.median(flow[flow_valid], axis=0)
     magnitude = np.linalg.norm(residual * [sx, sy], axis=2)
-    mask = np.uint8((magnitude > FLOW_THRESHOLD) & flow_valid)
+    mask = np.uint8((magnitude > threshold) & flow_valid)
     closed = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))
     n, labels, stats, _ = cv2.connectedComponentsWithStats(closed, 8)
     boxes = []
     for label in range(1, n):
         support = (labels == label) & (mask > 0)
         area = int(support.sum())
-        if area < FLOW_MIN_AREA:
+        if area < min_area:
             continue
         x, y, bw, bh, _ = stats[label]
         x1, y1 = max(0, int(x * sx) - 3), max(0, int(y * sy) - 3)
