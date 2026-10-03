@@ -32,6 +32,14 @@ raw video
 
 ### 1. DA-W residual (`scripts/analyze_video.py`)
 
+Neural net: **DA-W** (Weather-Conditioned Depth Anything, ECCV 2026).
+
+```
+https://github.com/taco-group/DA-W.git
+```
+
+Local checkout: `external/DA-W`. Weights: `checkpoints/daw_vits_stage2.pth` and `checkpoints/daw_style_filter_stage1.pth`.
+
 Per frame, writes a 6-panel comparison (960×576):
 
 1. Input
@@ -109,7 +117,7 @@ Weights stay in `checkpoints/` (not committed). Movies are ignored by `.gitignor
 
 ## Provenance
 
-- [DA-W](https://github.com/taco-group/DA-W) ViT-S + style filter
+- DA-W ViT-S + style filter: https://github.com/taco-group/DA-W.git
 - [Depth Anything V2 Small](https://huggingface.co/depth-anything/Depth-Anything-V2-Small)
 - [Object Concepts Emerge from Motion](https://github.com/TJ12342/object-concepts-from-motion) Swin-T
 - MOG2 morphology: `D:\bsense\mog_for_small_targets\mog_morph_tracker.py`

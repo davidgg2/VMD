@@ -8,3 +8,6 @@
 *.mpg
 *.mpeg
 *.wmv
+
+# Allow a small demo set
+!examples/*.mp4
